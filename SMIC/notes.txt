@@ -1,0 +1,127 @@
+smic_app/
+├── app.py
+├── requirements.txt
+├── data/
+│   └── hardcoded_data.py
+├── utils/
+│   └── charts.py
+└── page_inc/
+    ├── 01_Dashboard.py
+    ├── 02_Deal_Flow.py
+    ├── 03_Performance.py
+    ├── 04_Risk_Analytics.py
+    └── 05_Member_Portal.py
+
+
+📖 Complete Explanation: What This Investment Consortium Platform Does
+Who is this for?
+An investment consortium is a group of investors (institutions, family offices, high-net-worth individuals) who pool capital to invest in deals together. They need a single dashboard to track:
+
+Portfolio performance
+Deal flow
+Risk exposure
+Member contributions & returns
+
+Why do they need this site?
+Without a centralized system, consortium members rely on:
+
+Scattered Excel files emailed back and forth
+Manual calculations prone to error
+No real-time visibility into deal pipeline
+Difficulty comparing member performance
+Lack of risk analytics
+
+This prototype solves that by providing a unified, presentation-ready platform that simulates real investment data and shows how a digital tool can improve transparency, decision-making, and collaboration.
+
+🧭 Page-by-Page Breakdown: What Each Chart Means
+1. Dashboard (CEO / Board / Accounts)
+Chart / Metric	What it shows	Why it matters
+Total AUM	Total assets under management	Measures consortium size & growth
+Portfolio Return (YTD)	Year-to-date percentage return	Quick health check
+Sector Allocation Pie Chart	% of capital in Tech, Energy, Real Estate, etc.	Identifies over/under-exposure
+Top 5 Holdings by Value	Largest individual investments	Concentration risk (too much in one asset)
+NAV Trend Line	Net asset value over last 24 months	Shows historical growth trajectory
+Treemap	Same as pie but more visual	Easy for board presentations
+Waterfall Chart	Contribution of each asset to total return	Which investments are driving gains/losses
+Correlation Heatmap	How assets move together	Diversification: low correlation = safer
+Max Drawdown, Volatility, Beta	Risk metrics	Institutional investors demand these
+Role-Based Filtering (UBAC) rationale:
+
+CEO: Needs full picture to make strategic decisions → sees all charts & risk metrics.
+
+Board Member: Focuses on governance & top-level performance → sees compliance score, top/bottom performers, IRR gauge.
+
+Accounts: Needs transactional data → sees capital calls, fee calculations, recent transactions (no risk charts).
+
+2. Deal Flow (Kanban Board)
+Feature	Meaning	Why needed
+Stages (Pre-screen → Due Diligence → Negotiation → Closing)	Where each deal is in the investment process	Pipeline management – know what's coming
+Deal cards	Each card shows deal name, size, expected IRR, industry	Quick overview for investment committee
+Pipeline metrics (Total value, avg IRR, weighted IRR)	Aggregate of all active deals	Forecast future capital needs & returns
+Role filtering:
+CEO can edit stages (simulate moving deals) – they own the pipeline.
+Other roles view only (read-only).
+
+3. Performance
+Chart	Meaning	Why needed
+Returns by Asset (bar chart)	Individual investment returns (%)	Identify winners & losers
+Monthly Returns vs Benchmark	Compare portfolio to market index	Is the consortium beating the market?
+Waterfall of contribution	Which assets added most $ value	Show where profits came from
+Role filtering: CEO & Board see all; Accounts sees only aggregated (no individual performance for confidentiality? – but in prototype all see).
+
+4. Risk Analytics
+Metric	Meaning	Why critical
+Sharpe Ratio	Return per unit of risk (higher = better)	Standard institutional metric
+Max Drawdown	Largest peak-to-trough decline	Shows worst-case loss potential
+VaR (Value at Risk)	Expected loss at 95% confidence	Regulatory & risk management
+Correlation Heatmap	How assets move together	Diversification check
+Stress tests	Hypothetical shocks (market crash, rate hike)	Prepare for downturns
+Role filtering: Only CEO sees stress tests (strategic decisions). Board sees only summary.
+
+5. Member Portal
+Data	Meaning	Why needed
+Committed vs Allocated capital	How much member promised vs actually invested	Track capital calls
+Returns by Member	Each member's share of profits	Fair distribution
+Capital call schedule	When members need to send money	Cash flow planning
+Voting power (Board view)	Decision rights based on commitment	Governance
+
+Role filtering:
+
+Members see only their own data (in real system) – here simulated by role.
+Accounts sees all capital calls to issue them.
+CEO sees everything for management.
+
+6. Scenario Analyzer (What-If)
+Control	What it simulates	Why valuable
+Sector return adjustments	What if Tech drops 10% but Energy rises 5%?	Strategic rebalancing
+Market sentiment	Overall market boom or crash	Stress testing
+Interest rate shock	How real estate/infra reacts	Hedge against rate risk
+Output: New portfolio return and dollar impact.
+This is a powerful presentation tool to show consortium members how the platform can help them model decisions before committing capital.
+
+🎯 Significance of the Site
+Problem Before	Solution This Prototype Provides
+Siloed Excel files	Centralized web dashboard
+No real-time pipeline visibility	Kanban board updated by CEO
+Difficult risk calculations	Automated Sharpe, VaR, correlations
+Members unaware of capital calls	Scheduled calls with alerts
+No what-if modeling	Scenario analyzer
+In-person meeting dependency	Online meeting attendance (next)
+
+
+✅ How the Meetings Feature Works
+Role filtering: CEO/Board see attendance analytics; all members see meetings and can RSVP.
+Online attendance: Each meeting has a clickable link (simulated Google Meet, Zoom, Teams). Members can choose to attend online or in person.
+RSVP simulation: Radio buttons store choice (in session state; real system would save to database).
+Past recordings: Links to recordings for those who missed.
+
+This adds significant value for a consortium with geographically dispersed members. It shows you've thought about hybrid collaboration.
+
+🧠 Final Summary: Why All This Matters to the Consortium
+Their Pain Point	Our Solution
+"We don't know our total exposure across members"	Dashboard with AUM, allocation, risk
+"Deal pipeline is chaotic"	Kanban board + metrics
+"We can't model 'what if' scenarios"	Scenario Analyzer
+"Some members can't attend meetings"	Online meeting links & RSVP
+"Board needs governance view, accounts needs transactions"	UBAC (role-based views)
+This prototype is a proof of value – it shows the consortium that a digital platform would save time, reduce errors, and improve investment decisions.
