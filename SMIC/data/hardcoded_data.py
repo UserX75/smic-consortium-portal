@@ -25,9 +25,9 @@ investments = pd.DataFrame({
 shareholders = pd.DataFrame({
     'name': [
         'Sekhametsi Holdings (Pty) Ltd',
-        'Thabo Lejone',
+        'You (Founder Shareholder)',
         'Lesotho National Development Corporation',
-        'Teboho Family Trust',
+        'Mofolo Family Trust',
         'Letsie Capital Partners',
         'Employee Share Trust'
     ],
@@ -41,7 +41,7 @@ shareholders = pd.DataFrame({
 board_members = pd.DataFrame({
     'name': [
         'Mr. John Letsie',
-        'Ms. Teboho Masiu',
+        "Ms. 'Masekhonyana Mofolo",
         'Dr. Thabo Mbeki',
         'Mrs. Nthabiseng Ntsane',
         'Mr. Lerato Molapo'
@@ -49,7 +49,7 @@ board_members = pd.DataFrame({
     'position': ['Chairperson', 'CEO', 'Independent Director', 'Finance Director', 'Shareholder Rep'],
     'committee_memberships': [
         'Directors Affairs, Investment',
-        'Directors Affairs, Investment, VDI Adhoc',
+        "Directors Affairs, Investment, VDI Adhoc",
         'Audit and Risk, Investment',
         'Audit and Risk',
         'AGM Electoral'
@@ -60,10 +60,10 @@ board_members = pd.DataFrame({
 
 # ========== COMMITTEES & MEMBERS ==========
 committees = {
-    'Directors Affairs Committee': ['Mr. John Letsie', 'Mr. Teboho Masiu'],
+    'Directors Affairs Committee': ['Mr. John Letsie', "Ms. 'Masekhonyana Mofolo"],
     'Audit and Risk Committee': ['Dr. Thabo Mbeki', 'Mrs. Nthabiseng Ntsane'],
-    'Investment Committee': ['Mr. Teboho Masiu', 'Dr. Thabo Mbeki'],
-    'VDI Adhoc Committee': ['Mr. Teboho Masiu'],
+    'Investment Committee': ["Ms. 'Masekhonyana Mofolo", 'Dr. Thabo Mbeki'],
+    'VDI Adhoc Committee': ["Ms. 'Masekhonyana Mofolo"],
     'AGM Electoral Committee': ['Mr. Lerato Molapo']
 }
 
@@ -73,21 +73,21 @@ director_fees = pd.DataFrame({
     'quarterly_amount_usd': [5000, 7500, 4000, 4500, 3500],
     'annual_total': [20000, 30000, 16000, 18000, 14000]
 })
-# Payment schedule (hardcoded for 2025)
+
 fee_payment_dates = pd.DataFrame({
     'quarter': ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
     'payment_date': ['2025-03-31', '2025-06-30', '2025-09-30', '2025-12-31'],
     'status': ['Paid', 'Upcoming', 'Upcoming', 'Upcoming']
 })
 
-# ========== EMPLOYEE FEES (Monthly - sample) ==========
+# ========== EMPLOYEE FEES ==========
 employee_fees = pd.DataFrame({
     'employee': ['Financial Manager', 'Investment Analyst', 'Compliance Officer', 'Admin Assistant'],
     'monthly_salary_usd': [3000, 2500, 2800, 1500],
     'annual_total': [36000, 30000, 33600, 18000]
 })
 
-# ========== INTERNAL & EXTERNAL REGULATIONS ==========
+# ========== REGULATIONS ==========
 internal_regulations = [
     {'title': 'Consortium Charter', 'version': '3.2', 'effective_date': '2024-01-01', 'link': '#internal1'},
     {'title': 'Code of Conduct', 'version': '2.0', 'effective_date': '2023-06-01', 'link': '#internal2'},
@@ -102,7 +102,7 @@ external_regulations = [
     {'title': 'FIA Anti-Money Laundering Rules', 'authority': 'FIA Lesotho', 'link': '#external4'},
 ]
 
-# ========== INVESTMENT REPORTS (CRUD simulation) ==========
+# ========== INVESTMENT REPORTS ==========
 reports = pd.DataFrame({
     'report_id': [1, 2, 3],
     'title': ['Q4 2024 Portfolio Review', 'Annual Report 2024', 'Investment Strategy 2025'],
@@ -119,13 +119,13 @@ reports = pd.DataFrame({
     ]
 })
 
-# ========== VOTING POLLS (for live simulation) ==========
+# ========== VOTING POLLS ==========
 polls = [
     {
         'id': 1,
         'title': 'Election of Board Chairperson 2025',
-        'description': 'Nominees: John Letsie (incumbent), Teboho Masiu',
-        'options': ['John Letsie', 'Teboho Masiu', 'Abstain'],
+        'description': "Nominees: John Letsie (incumbent), 'Masekhonyana Mofolo",
+        'options': ['John Letsie', "Masekhonyana Mofolo", 'Abstain'],
         'votes': [0, 0, 0],
         'active': True,
         'created_by': 'AGM Electoral Committee'
@@ -141,17 +141,16 @@ polls = [
     }
 ]
 
-# ========== PORTFOLIO HOLDINGS (legacy, keep for dashboard) ==========
-# We'll use investments as the primary holdings now
+# ========== PORTFOLIO HOLDINGS ==========
 holdings = investments.rename(columns={'entity': 'asset', 'ownership_pct': 'return_pct'})
 holdings['value'] = holdings['valuation_usd_m'] * 1e6
 holdings['irr'] = holdings['irr_estimate']
 
-# Sector allocation from investments
+# ========== SECTOR ALLOCATION ==========
 sector_allocation = investments.groupby('sector')['valuation_usd_m'].sum().reset_index()
 sector_allocation.columns = ['sector', 'allocation']
 
-# Risk metrics (same as before)
+# ========== RISK METRICS ==========
 risk_metrics = {
     'sharpe_ratio': 1.42,
     'sortino_ratio': 1.85,
@@ -162,20 +161,22 @@ risk_metrics = {
     'alpha': 4.2
 }
 
-# NAV history (simulate based on total valuation)
+# ========== NAV HISTORY - FIXED (using 'ME' instead of 'M') ==========
+np.random.seed(42)
+total_nav = investments['valuation_usd_m'].sum() * 1e6
 nav_history = pd.DataFrame({
-    'date': pd.date_range(start='2023-01-01', periods=24, freq='M'),
-    'nav': investments['valuation_usd_m'].sum() * 1e6 * (1 + np.cumsum(np.random.normal(0.01, 0.02, 24)) / 100)
+    'date': pd.date_range(start='2023-01-01', periods=24, freq='ME'),  # Changed 'M' to 'ME'
+    'nav': total_nav * (1 + np.cumsum(np.random.normal(0.01, 0.02, 24)) / 100)
 })
 
-# Monthly returns (keep for performance)
+# ========== MONTHLY RETURNS - FIXED ==========
 monthly_returns = pd.DataFrame({
-    'date': pd.date_range(start='2024-01-01', periods=12, freq='M'),
+    'date': pd.date_range(start='2024-01-01', periods=12, freq='ME'),  # Changed 'M' to 'ME'
     'portfolio_return': np.random.uniform(-1, 3, 12),
     'benchmark_return': np.random.uniform(-0.5, 2, 12)
 })
 
-# Active deals (same as before)
+# ========== ACTIVE DEALS ==========
 active_deals = pd.DataFrame({
     'deal': ['SolarGrid Inc', 'Quantum Computing Lab', 'Logistics AI Platform', 'Vertical Farming Co', 
              'Carbon Capture Fund', 'Fintech Lending Platform'],
@@ -185,18 +186,18 @@ active_deals = pd.DataFrame({
     'industry': ['Energy', 'Tech', 'Tech', 'Agriculture', 'Energy', 'Fintech']
 })
 
-# Members (original consortium members)
+# ========== MEMBERS ==========
 members = pd.DataFrame({
-    'name': ['Up In The L Inc', 'Beta Capital', 'Gamma Family Office', 'Delta Pension Fund', 'Epsilon Endowment'],
+    'name': ['Alpha Partners', 'Beta Capital', 'Gamma Family Office', 'Delta Pension Fund', 'Epsilon Endowment'],
     'committed_mm': [75, 60, 45, 40, 30],
     'allocated_mm': [62, 58, 38, 35, 28],
     'returns_mm': [14.5, 12.3, 8.1, 7.2, 5.6]
 })
 
-# Capital calls (for accounts view)
+# ========== CAPITAL CALLS ==========
 capital_calls = pd.DataFrame({
-    'date': pd.date_range(start='2024-01-01', periods=6, freq='M'),
+    'date': pd.date_range(start='2024-01-01', periods=6, freq='ME'),  # Changed 'M' to 'ME'
     'amount_mm': [5.2, 3.8, 6.1, 4.5, 7.0, 2.9],
-    'called_from': ['Up In The L Inc', 'Beta Capital', 'Gamma Family Office', 'Delta Pension Fund', 
-                    'Up In The L Inc', 'Epsilon Endowment']
+    'called_from': ['Alpha Partners', 'Beta Capital', 'Gamma Family Office', 'Delta Pension Fund', 
+                    'Alpha Partners', 'Epsilon Endowment']
 })
