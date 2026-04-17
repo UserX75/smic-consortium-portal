@@ -11,7 +11,6 @@ def show():
     with tab1:
         st.subheader("Shareholder Registry")
         st.dataframe(shareholders, use_container_width=True, hide_index=True)
-        st.info("⭐ You are listed as 'You (Founder Shareholder)' with 15% ownership.")
     
     with tab2:
         st.subheader("Board of Directors")
