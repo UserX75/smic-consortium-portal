@@ -10,9 +10,9 @@ def show():
     
     with tab1:
         st.subheader("Director Fee Schedule")
-        st.dataframe(director_fees, use_container_width=True)
+        st.dataframe(director_fees, use_container_width=True, hide_index=True)
         st.subheader("Payment Calendar 2025")
-        st.dataframe(fee_payment_dates, use_container_width=True)
+        st.dataframe(fee_payment_dates, use_container_width=True, hide_index=True)
         total_director_fees = director_fees['annual_total'].sum()
         st.metric("Total Annual Director Fees", f"${total_director_fees:,.0f}")
         
@@ -24,7 +24,7 @@ def show():
     
     with tab2:
         st.subheader("Employee Monthly Salaries")
-        st.dataframe(employee_fees, use_container_width=True)
+        st.dataframe(employee_fees, use_container_width=True, hide_index=True)
         total_employee_fees = employee_fees['annual_total'].sum()
         st.metric("Total Annual Employee Fees", f"${total_employee_fees:,.0f}")
         st.caption("Note: Employees also receive performance bonuses (not shown).")
