@@ -10,16 +10,17 @@ def show():
     
     with tab1:
         st.subheader("Shareholder Registry")
-        st.dataframe(shareholders, use_container_width=True)
+        st.dataframe(shareholders, use_container_width=True, hide_index=True)
+        st.info("⭐ You are listed as 'You (Founder Shareholder)' with 15% ownership.")
     
     with tab2:
         st.subheader("Board of Directors")
-        st.dataframe(board_members, use_container_width=True)
+        st.dataframe(board_members, use_container_width=True, hide_index=True)
         st.caption("Same person can serve on multiple committees (see Committee Memberships column).")
     
     with tab3:
         st.subheader("Member Commitments & Performance")
-        st.dataframe(members, use_container_width=True)
+        st.dataframe(members, use_container_width=True, hide_index=True)
         col1, col2 = st.columns(2)
         with col1:
             st.bar_chart(members.set_index('name')[['committed_mm', 'allocated_mm']])
@@ -28,11 +29,14 @@ def show():
     
     with tab4:
         st.subheader("Capital Call Schedule")
-        st.dataframe(capital_calls, use_container_width=True)
+        st.dataframe(capital_calls, use_container_width=True, hide_index=True)
         if role in ["Accounts", "CEO"]:
             st.subheader("Capital Call Forecast")
+            # FIXED: Changed 'M' to 'ME'
             forecast = pd.DataFrame({
-                'Month': pd.date_range(start='2024-04-01', periods=4, freq='M'),
+                'Month': pd.date_range(start='2024-04-01', periods=4, freq='ME'),
                 'Expected Call ($M)': [4.5, 5.0, 3.8, 6.2]
             })
-            st.line_chart(forecast.set_index('Month'))
+            # Format the Month column to show just month names
+            forecast['Month'] = forecast['Month'].dt.strftime('%b %Y')
+            st.bar_chart(forecast.set_index('Month'))
